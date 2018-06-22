@@ -1,25 +1,29 @@
 import datetime
 import os
 
-from airflow import models
+from airflow import DAG
 from airflow.operators import python_operator
 from pyweatherscraper.scraper import WeatherScraper
+
+yesterday = datetime.datetime.combine(
+    datetime.datetime.today() - datetime.timedelta(1),
+    datetime.datetime.min.time())
 
 default_dag_args = {
     'start_date': yesterday,
     'email_on_failure': False,
     'email_on_retry': False,
     'retries': 1,
-    'retry_delay': datetime.timedelta(minutes=5),
-    'project_id': models.Variable.get('gcp_project')
+    'retry_delay': datetime.timedelta(minutes=5)
 }
 
-with models.DAG(
-    'weatherRunner',
-    schedule_interval=datetime.timedelta(minutes=15),
-    default_args=default_dag_args as dag:
-    run_weather_script = python_operator.PythonOperator(
-        WeatherScraper().storeWeather()
-    )
-    run_weather_script
+
+dag = DAG('weatherRunner',
+schedule_interval=datetime.timedelta(minutes=15),
+    default_args=default_dag_args
+)
+
+t1 = python_operator.PythonOperator(
+    WeatherScraper().storeWeather(),
+    dag = dag
 )
