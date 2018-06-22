@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/git'
+  args: ['submodule', 'update', '--init','--recursive' ]
+- name: gcr.io/cloud-builders/gsutil
+  args: ['rsync','-d','.','gs://us-central1-second-composer-50d3cf3c-bucket/dags/weatherrunner']
