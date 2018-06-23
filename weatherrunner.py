@@ -24,6 +24,7 @@ schedule_interval=datetime.timedelta(minutes=15),
 )
 
 t1 = python_operator.PythonOperator(
-    WeatherScraper().storeWeather(),
+    task_id='store_weather',
+    python_callable=WeatherScraper().storeWeather,
     dag = dag
 )
