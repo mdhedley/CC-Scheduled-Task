@@ -20,7 +20,8 @@ default_dag_args = {
 
 dag = DAG('weatherRunner',
 schedule_interval=datetime.timedelta(minutes=15),
-    default_args=default_dag_args
+    default_args=default_dag_args,
+    catchup=false
 )
 
 t1 = python_operator.PythonOperator(
