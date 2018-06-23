@@ -1,3 +1,0 @@
-[submodule "pyweatherscraper"]
-	path = pyweatherscraper
-	url = https://github.com/mdhedley/py3-weather-scraper.git
