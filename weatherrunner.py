@@ -3,7 +3,7 @@ import os
 
 from airflow import DAG
 from airflow.operators import python_operator
-from pyweatherscraper.scraper import WeatherScraper
+from weatherrunner.pyweatherscraper.scraper import WeatherScraper
 
 yesterday = datetime.datetime.combine(
     datetime.datetime.today() - datetime.timedelta(1),
